@@ -1,6 +1,7 @@
 import openai
 import json
 import time
+import pigpio
 
 # Set GPIO pins for PWM outputs
 FORWARD_GPIO = 12
@@ -10,6 +11,26 @@ REVERSE_GPIO = 13
 PWM_FREQ = 1000
 DELAY = 0.05
 
+# Setup GPIO pins
+pi = pigpio.pi()
+pi.set_mode(FORWARD_GPIO, pigpio.OUTPUT)
+pi.set_mode(REVERSE_GPIO, pigpio.OUTPUT)
+
+
+# Function that sends actual PWM signals to the GPIO pins
+def send_signal(direction: str, speed: int):
+    print("send signal {}, {}".format(direction, speed))
+    if direction == "forward":
+        # Write the PWM signal
+        pi.hardware_PWM(FORWARD_GPIO, PWM_FREQ, speed * 10000)
+        # Write 0 to the other pin
+        pi.write(REVERSE_GPIO, 0)
+    else:
+        # Write the PWM signal
+        pi.hardware_PWM(REVERSE_GPIO, PWM_FREQ, speed * 10000)
+        # Write 0 to the other pin
+    # Sleep for certain period
+    time.sleep(DELAY)
 
 # Class that expresses the vehicle (train)
 class Vehicle:
@@ -30,14 +51,14 @@ class Vehicle:
             while self.speed:
                 print("self.direction {}, self.speed {}".format(self.direction, self.speed))
                 self.speed -= 1
-                time.sleep(DELAY)
+                send_signal(self.direction, self.speed)
             
             # Then switch direction and increase speed to desired speed
             self.direction = direction
             while self.speed != speed:
                 print("self.direction {}, self.speed {}".format(self.direction, self.speed))
                 self.speed += 1
-                time.sleep(DELAY)
+                send_signal(self.direction, self.speed)
 
         else:
             # If the direction is the same, then adjust to the speed
@@ -45,14 +66,12 @@ class Vehicle:
                 while self.speed != speed:
                     print("self.direction {}, self.speed {}".format(self.direction, self.speed))
                     self.speed -= 1
-                    time.sleep(DELAY)
+                    send_signal(self.direction, self.speed)
             else:
                 while self.speed != speed:
                     print("self.direction {}, self.speed {}".format(self.direction, self.speed))
                     self.speed += 1
-                    time.sleep(DELAY)
-
-        # Sending signals to raspi here
+                    send_signal(self.direction, self.speed)
     
 
 # Function that checks for allowed values (will return True if values are OK)
