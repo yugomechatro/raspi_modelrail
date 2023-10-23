@@ -16,7 +16,11 @@
 
 
 ## ソフトウェア構成
-Pythonを使用します。インストールが必要なパッケージについてはrequirements.txtに記載しています。今回の目玉であるopenaiもインストールします。
+ラズパイのOSとしてはRaspberry Pi OS (32-bit)を使用しています。
+<br>
+ラズパイのGPIOの制御にはpigpioライブラリを使用しています。
+
+プログラムについてはPythonを使用します。インストールが必要なパッケージについてはrequirements.txtに記載しています。今回の目玉であるopenaiもインストールします。
 
 また、OpenAIのAPIを使用するので、OpenAIの有料クレジットを購入する必要があります。GPT3.5を使用しているため、比較的安価ではありますが、ユーザープロンプトを受け付けるたびに課金されることは留意してください。
 
@@ -57,7 +61,8 @@ Insert user prompt (in Japanese):走れ
     "arguments": "{\n  \"direction\": \"forward\",\n  \"speed\": 100\n}"
   }
 }
-command accepted, direction: forward, speed: 100self.direction forward, self.speed 0
+command accepted, direction: forward, speed: 100
+self.direction forward, self.speed 0
 self.direction forward, self.speed 1
 self.direction forward, self.speed 2
 self.direction forward, self.speed 3
