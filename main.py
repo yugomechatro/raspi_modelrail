@@ -50,14 +50,12 @@ class Vehicle:
         if self.direction != direction:
             # First decrease speed to zero
             while self.speed:
-                print("self.direction {}, self.speed {}".format(self.direction, self.speed))
                 self.speed -= 1
                 send_signal(self.direction, self.speed)
             
             # Then switch direction and increase speed to desired speed
             self.direction = direction
             while self.speed != speed:
-                print("self.direction {}, self.speed {}".format(self.direction, self.speed))
                 self.speed += 1
                 send_signal(self.direction, self.speed)
 
@@ -65,12 +63,10 @@ class Vehicle:
             # If the direction is the same, then adjust to the speed
             if self.speed > speed:
                 while self.speed != speed:
-                    print("self.direction {}, self.speed {}".format(self.direction, self.speed))
                     self.speed -= 1
                     send_signal(self.direction, self.speed)
             else:
                 while self.speed != speed:
-                    print("self.direction {}, self.speed {}".format(self.direction, self.speed))
                     self.speed += 1
                     send_signal(self.direction, self.speed)
     
