@@ -30,7 +30,23 @@
 <br>
 また、環境変数にOpenAIのAPI Keyが登録されている前提となっていますので、OpenAIのAPI Keyを発行し、環境変数として登録しておいてください。
 
-まずはrequirements.txtのパッケージをインストールします。
+まず最初にpigpioライブラリをインストールします。
+```
+sudo apt install pigpio
+```
+
+pigpioのインストールが終わったら、pigpioのdaemonを実行しておきます。
+```
+sudo pigpiod
+```
+
+Gitリポジトリのクローン後、Pythonの仮想環境を作成する場合は以下のコマンドを実行して仮想環境を作ります。
+
+```
+python -m venv .venv
+```
+
+requirements.txtのパッケージをインストールします。
 
 ```
 pip install -r requirements.txt
