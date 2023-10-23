@@ -155,4 +155,4 @@ def run_conversation():
 
 
 if __name__ == "__main__":
-    print(run_conversation())
+    run_conversation()
