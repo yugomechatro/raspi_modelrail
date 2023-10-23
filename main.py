@@ -29,6 +29,7 @@ def send_signal(direction: str, speed: int):
         # Write the PWM signal
         pi.hardware_PWM(REVERSE_GPIO, PWM_FREQ, speed * 10000)
         # Write 0 to the other pin
+        pi.write(FORWARD_GPIO, 0)
     # Sleep for certain period
     time.sleep(DELAY)
 
